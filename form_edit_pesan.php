@@ -51,7 +51,7 @@ include("function/koneksi.php");
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-md-8">
-                    <form id="formPemesanan" action="function/proses_pesan.php" method="post" class="row g-3">
+                    <form id="formPemesanan" action="function/proses_edit.php" method="post" class="row g-3">
                         <?php
                         $id = isset($_GET['id']) ? $_GET['id'] : '';
 
@@ -64,6 +64,9 @@ include("function/koneksi.php");
                             $no_hp = $user_data['no_hp'];
                             $tanggal_pesan = $user_data['tanggal_pesan'];
                             $jumlah_hari = $user_data['jumlah_hari'];
+                            $akomodasi = $user_data['akomodasi'];
+                            $transportasi = $user_data['transportasi'];
+                            $servis = $user_data['servis'];
                             $jumlah_peserta = $user_data['jumlah_peserta'];
                             $harga_paket = $user_data['harga_paket'];
                             $total_tagihan = $user_data['total_tagihan'];
@@ -73,6 +76,7 @@ include("function/koneksi.php");
                         ?>
                             <div class="col-md-12 pt-2">
                                 <label for="inputPemesan" class="form-label">Nama Pemesan</label>
+                                <input type="hidden" name="id" value="<?php echo $id; ?>">
                                 <input type="text" name="nama" value="<?php echo $nama ?>" class="form-control" required>
                             </div>
                             <div class="col-md-12 pt-2">
@@ -90,19 +94,19 @@ include("function/koneksi.php");
                             <div class="col-md-12 pt-2">
                                 <label for="">Pelayanan Paket Perjalanan</label>
                                 <div class="form-check">
-                                    <input name="pelayanan[]" class="form-check-input" type="checkbox" value="1000000" id="penginapan">
+                                    <input name="pelayanan[]" class="form-check-input" type="checkbox" value="1000000" <?php if ($akomodasi == 'Y') echo 'checked'; ?> id="penginapan">
                                     <label class="form-check-label" for="penginapan">
                                         Penginapan (Rp 1,000,000)
                                     </label>
                                 </div>
                                 <div class="form-check">
-                                    <input name="pelayanan[]" class="form-check-input" type="checkbox" value="1200000" id="transportasi">
+                                    <input name="pelayanan[]" class="form-check-input" type="checkbox" value="1200000" <?php if ($transportasi == 'Y') echo 'checked'; ?> id="transportasi">
                                     <label class="form-check-label" for="transportasi">
                                         Transportasi (Rp 1,200,000)
                                     </label>
                                 </div>
                                 <div class="form-check">
-                                    <input name="pelayanan[]" class="form-check-input" type="checkbox" value="500000" id="servis">
+                                    <input name="pelayanan[]" class="form-check-input" type="checkbox" value="500000" <?php if ($servis == 'Y') echo 'checked'; ?> id="servis">
                                     <label class="form-check-label" for="servis">
                                         Servis/Makan (Rp 500,000)
                                     </label>
@@ -122,7 +126,7 @@ include("function/koneksi.php");
                             </div>
 
                             <div class="col-md-12 pt-2">
-                                <button type="submit" name="pemesan" class="btn btn-primary">Update</button>
+                                <button type="submit" name="update" class="btn btn-primary">Update</button>
                                 <button type="button" class="btn btn-primary" onclick="hitungTotal()">Hitung</button>
                                 <button type="reset" class="btn btn-danger">Reset</button>
                             </div>
